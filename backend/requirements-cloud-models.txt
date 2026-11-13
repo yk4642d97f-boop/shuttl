@@ -1,0 +1,5 @@
+# Optional CPU model add-ons after requirements.txt. Install with --no-deps:
+# backend already supplies numpy/OpenCV; avoid rtmlib pulling duplicate OpenCV wheels.
+positional-encodings==6.0.4
+rtmlib==0.0.16
+onnxruntime==1.20.1

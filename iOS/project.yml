@@ -1,0 +1,149 @@
+name: Shuttl
+options:
+  bundleIdPrefix: com.shuttl
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.2"
+  generateEmptyDirectories: true
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_BITCODE: NO
+    DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    DEVELOPMENT_TEAM: ""
+
+packages:
+  ShuttlCore:
+    path: Packages/ShuttlCore
+  ShuttlDesign:
+    path: Packages/ShuttlDesign
+  ShuttlResultsUI:
+    path: Packages/ShuttlResultsUI
+  ShuttlCalibrationUI:
+    path: Packages/ShuttlCalibrationUI
+  ShuttlAnalysis:
+    path: Packages/ShuttlAnalysis
+  ShuttlLive:
+    path: Packages/ShuttlLive
+  ShuttlPresent:
+    path: Packages/ShuttlPresent
+  ShuttlRuntime:
+    path: Packages/ShuttlRuntime
+  ShuttlPlayers:
+    path: Packages/ShuttlPlayers
+  # The learned hit detector (5.3 MB) as its own package, like ShuttlStrokeModel: ShuttlLive
+  # depends on it, so HitNetDetector ships inside the app through that package.
+  ShuttlHitModel:
+    path: Packages/ShuttlHitModel
+
+targets:
+  Shuttl:
+    dependencies:
+      - package: ShuttlCore
+      - package: ShuttlDesign
+      - package: ShuttlAnalysis
+      - package: ShuttlLive
+      - package: ShuttlResultsUI
+      - package: ShuttlCalibrationUI
+      - package: ShuttlPresent
+      - package: ShuttlRuntime
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Sources
+        excludes:
+          - "**/.DS_Store"
+      # Compiled by Xcode into ShuttleTracker.mlmodelc (loaded by MLInferenceEngine; also
+      # the WASB fallback for on-device analysis).
+      - path: Resources/Models/ShuttleTracker.mlpackage
+        optional: true
+      # On-device analysis detector (ShuttlDetector's default), compiled to TrackNetV3.mlmodelc.
+      - path: Packages/ShuttlDetector/Models/TrackNetV3.mlpackage
+        optional: true
+      # On-device pose model, compiled to RTMPoseM.mlmodelc and loaded by RTMPoseCoreML
+      # (ShuttlPlayers' default pose; Apple Vision stays the fallback). fp32, 54 MB; the
+      # verified port of MMPose RTMPose-m (research/coreml/REPORT.md). Do not ship fp16.
+      - path: Packages/ShuttlPlayers/Models/RTMPoseM.mlpackage
+        optional: true
+      # App icon. It must sit under `sources`: xcodegen ignores a target-level `resources:` key.
+      - path: Resources/Assets.xcassets
+      # Apple's required-reason API declarations (file timestamps, boot time, disk space,
+      # UserDefaults), at the bundle root.
+      - path: Resources/PrivacyInfo.xcprivacy
+        buildPhase: resources
+      # Open-source notices and licence texts for the 关于与致谢 screen (OFL, MIT, BSD, Apache).
+      - path: Resources/Legal
+        type: folder
+        buildPhase: resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.shuttl
+        PRODUCT_NAME: Shuttl
+        CODE_SIGN_STYLE: Automatic
+        INFOPLIST_FILE: Resources/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_PREVIEWS: YES
+        SWIFT_STRICT_CONCURRENCY: complete
+        COREML_CODEGEN_LANGUAGE: None
+      configs:
+        Debug:
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+
+  ShuttlTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: Tests
+        excludes:
+          # Read from disk via #filePath by RTMPoseParityTests; not copied into the bundle
+          # (6 x 0.9 MB PPM frames plus the fixture generator script).
+          - "Fixtures/**"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shuttl.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Shuttl.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Shuttl"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+    dependencies:
+      - target: Shuttl
+      - package: ShuttlPlayers
+      - package: ShuttlCore
+      # HitNetParityTests imports the hit model package directly (it is also pulled in through
+      # ShuttlLive, but the test names its types).
+      - package: ShuttlHitModel
+
+  ShuttlUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: UITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.shuttl.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TEST_TARGET_NAME: Shuttl
+    dependencies:
+      - target: Shuttl
+
+schemes:
+  Shuttl:
+    build:
+      targets:
+        Shuttl: all
+        ShuttlTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - ShuttlTests

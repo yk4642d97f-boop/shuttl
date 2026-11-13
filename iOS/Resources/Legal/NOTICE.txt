@@ -1,0 +1,346 @@
+Shuttl · 关于与致谢 / About & Acknowledgements
+==============================================
+
+Shuttl 使用了以下开源作品和公开研究成果。感谢所有作者。
+Shuttl uses the following open-source works and published research. Thank you to all authors.
+Full licence texts follow below and are also included as separate files (licenses/).
+
+----------------------------------------------------------------------
+一、羽毛球检测模型 / Shuttle detection models
+----------------------------------------------------------------------
+1. TrackNetV3 (tracking module weights TrackNet_best.pt and network design)
+   Copyright (c) 2024 qaz812345
+   Licence: MIT (covers the code and the pretrained model checkpoints)
+   https://github.com/qaz812345/TrackNetV3
+   Paper: Yu-Jou Chen, Yu-Shuen Wang. "TrackNetV3: Enhancing ShuttleCock Tracking with
+   Augmentations and Trajectory Rectification." ACM Multimedia Asia 2023.
+   https://doi.org/10.1145/3595916.3626370
+
+2. WASB-SBDT (HRNet badminton weights and network design)
+   Copyright (c) 2023 NTT Communications Corporation
+   Licence: MIT
+   https://github.com/nttcom/WASB-SBDT
+   Paper: Shuhei Tarashima, Muhammad Abdul Haq, Yushan Wang, Norio Tagawa. "Widely Applicable
+   Strong Baseline for Sports Ball Detection and Tracking." BMVC 2023. https://arxiv.org/abs/2311.05237
+
+3. HRNet (network building blocks used by WASB)
+   Copyright (c) Microsoft; Copyright (c) 2019 Leo Xiao; Copyright (c) 2019 HRNet
+   Written by Bin Xiao, modified by Bowen Cheng. Licence: MIT
+   https://github.com/leoxiaobin/deep-high-resolution-net.pytorch
+   https://github.com/HRNet/HigherHRNet-Human-Pose-Estimation
+
+   The released weights of 1 and 2 were trained by their authors on the Shuttlecock Trajectory
+   Dataset (TrackNet / TrackNetV2, NYCU CoachAI, https://hackmd.io/@TUIK/rJkRW54cU).
+   上述模型权重由原作者在 Shuttlecock Trajectory Dataset（阳明交通大学 CoachAI 团队）上训练。
+
+----------------------------------------------------------------------
+三、图像与数值算法 / Image-processing and numerical algorithms
+----------------------------------------------------------------------
+Parts of Shuttl's Swift code are ports of the following libraries' routines, rewritten in Swift
+and modified by the Shuttl team to run on iPhone. / Shuttl 的部分 Swift 代码移植自以下库的算法，
+由 Shuttl 团队改写为 Swift 并做了修改。
+
+5. OpenCV 4.x - HoughLinesP, distanceTransform, GaussianBlur, findHomography, Rodrigues,
+   connectedComponents, remap, resize, warpAffine, cvtColor (BGR to HSV), cv::RNG
+   Licence: Apache License 2.0 (see licenses/Apache-2.0.txt); the original source files also carry
+   the OpenCV 3-clause licence reproduced below.
+   Copyright (C) 2000-2022, Intel Corporation, all rights reserved.
+   Copyright (C) 2009-2011, Willow Garage Inc., all rights reserved.
+   Copyright (C) 2009-2016, NVIDIA Corporation, all rights reserved.
+   Copyright (C) 2010-2013, Advanced Micro Devices, Inc., all rights reserved.
+   Copyright (C) 2015-2023, OpenCV Foundation, all rights reserved.
+   Copyright (C) 2008-2016, Itseez Inc., all rights reserved.
+   Copyright (C) 2019-2023, Xperience AI, all rights reserved.
+   Copyright (C) 2019-2022, Shenzhen Institute of Artificial Intelligence and Robotics for Society, all rights reserved.
+   Copyright (C) 2022-2023, Southern University of Science And Technology, all rights reserved.
+   Copyright (C) 2023-2025, OpenCV AI, all rights reserved.
+   connectedComponents: 2011 Jason Newton; 2016-2021 Costantino Grana, Federico Bolelli,
+   Lorenzo Baraldi, Roberto Vezzani, Michele Cancilla, Stefano Allegretti.
+   Third party copyrights are property of their respective owners.
+   https://github.com/opencv/opencv
+
+6. NumPy - pairwise summation, argsort, median / percentile / interp semantics
+   Copyright (c) 2005-2023, NumPy Developers. Licence: BSD 3-Clause. https://numpy.org
+
+7. SciPy - scipy.optimize.least_squares, method "trf"
+   Copyright (c) 2001-2002 Enthought, Inc. 2003-2024, SciPy Developers. Licence: BSD 3-Clause.
+   https://scipy.org
+
+8. LAPACK - dlaev2 / dsyevd eigenvector conventions, gesv, dpbsv
+   Copyright (c) 1992-2025 The University of Tennessee and The University of Tennessee Research
+   Foundation; Copyright (c) 2000-2025 The University of California Berkeley; Copyright (c)
+   2006-2025 The University of Colorado Denver. Licence: modified BSD. https://www.netlib.org/lapack/
+
+----------------------------------------------------------------------
+四、学术引用 / Research we build on (citation only, no code or data included)
+----------------------------------------------------------------------
+- Yu-Chuan Huang, I-No Liao, Ching-Hsuan Chen, Tsì-Uí İk, Wen-Chih Peng. "TrackNet: A Deep
+  Learning Network for Tracking High-speed and Tiny Objects in Sports Applications." AVSS 2019.
+  https://doi.org/10.1109/AVSS.2019.8909871
+- Nien-En Sun, Yu-Ching Lin, Shao-Ping Chuang, Tzu-Han Hsu, Dung-Ru Yu, Ho-Yi Chung, Tsì-Uí İk.
+  "TrackNetV2: Efficient Shuttlecock Tracking Network." ICPAI 2020.
+  https://doi.org/10.1109/ICPAI51961.2020.00023
+- Shuttlecock Trajectory Dataset, contributors 林育慶、孫念恩、Tsì-Uí İk (NYCU CoachAI).
+  https://hackmd.io/@TUIK/rJkRW54cU
+
+----------------------------------------------------------------------
+五、系统框架 / Apple frameworks
+----------------------------------------------------------------------
+Shuttl uses Apple's Vision, Core ML, AVFoundation, MetricKit and other iOS system frameworks.
+iPhone is a trademark of Apple Inc. Text is set in Apple's system fonts (SF Pro, New York, SF Mono,
+PingFang). The app icon and all other artwork were created by the Shuttl team.
+
+
+LICENCE TEXTS / 许可证全文
+
+======================================================================
+MIT License - TrackNetV3, WASB-SBDT, HRNet (each under its own copyright line)
+======================================================================
+MIT License
+
+Copyright (c) 2024 qaz812345 (TrackNetV3; its grant also names "pretrained model checkpoints")
+Copyright (c) 2023 NTT Communications Corporation (WASB-SBDT)
+Copyright (c) Microsoft (HRNet, as marked in WASB-SBDT src/models/hrnet.py)
+Copyright (c) 2019 Leo Xiao (deep-high-resolution-net.pytorch)
+Copyright (c) 2019 HRNet (HigherHRNet-Human-Pose-Estimation)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+======================================================================
+BSD 3-Clause License - NumPy
+======================================================================
+Copyright (c) 2005-2023, NumPy Developers.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+
+    * Redistributions in binary form must reproduce the above
+       copyright notice, this list of conditions and the following
+       disclaimer in the documentation and/or other materials provided
+       with the distribution.
+
+    * Neither the name of the NumPy Developers nor the names of any
+       contributors may be used to endorse or promote products derived
+       from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+======================================================================
+BSD 3-Clause License - SciPy
+======================================================================
+Copyright (c) 2001-2002 Enthought, Inc. 2003-2024, SciPy Developers.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
+   with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived
+   from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+======================================================================
+LAPACK licence (modified BSD)
+======================================================================
+Copyright (c) 1992-2025 The University of Tennessee and The University
+                        of Tennessee Research Foundation.  All rights
+                        reserved.
+Copyright (c) 2000-2025 The University of California Berkeley. All
+                        rights reserved.
+Copyright (c) 2006-2025 The University of Colorado Denver.  All rights
+                        reserved.
+
+$COPYRIGHT$
+
+Additional copyrights may follow
+
+$HEADER$
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+- Redistributions of source code must retain the above copyright
+  notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+  notice, this list of conditions and the following disclaimer listed
+  in this license in the documentation and/or other materials
+  provided with the distribution.
+
+- Neither the name of the copyright holders nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+The copyright holders provide no reassurances that the source code
+provided does not infringe any patent, copyright, or any other
+intellectual property rights of third parties.  The copyright holders
+disclaim any liability to any recipient for claims brought against
+recipient by any third party for infringement of that parties
+intellectual property rights.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+======================================================================
+OpenCV - original per-file licence (3-clause); OpenCV 4.x as a whole is Apache-2.0,
+full text in licenses/Apache-2.0.txt
+======================================================================
+[variant used by hough.cpp, distransform.cpp, smooth.dispatch.cpp, fundam.cpp, resize.cpp,
+ imgwarp.cpp, calibration.cpp]
+IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+
+ By downloading, copying, installing or using the software you agree to this license.
+ If you do not agree to this license, do not download, install,
+ copy or use the software.
+
+
+                          License Agreement
+               For Open Source Computer Vision Library
+
+Copyright (C) 2000, Intel Corporation, all rights reserved.
+Copyright (C) 2013, OpenCV Foundation, all rights reserved.
+Copyright (C) 2014, Itseez, Inc, all rights reserved.
+Copyright (C) 2026, Advanced Micro Devices, Inc., all rights reserved.
+Third party copyrights are property of their respective owners.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+  * Redistribution's of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+
+  * Redistribution's in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+  * The name of the copyright holders may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is" and
+any express or implied warranties, including, but not limited to, the implied
+warranties of merchantability and fitness for a particular purpose are disclaimed.
+In no event shall the Intel Corporation or contributors be liable for any direct,
+indirect, incidental, special, exemplary, or consequential damages
+(including, but not limited to, procurement of substitute goods or services;
+loss of use, data, or profits; or business interruption) however caused
+and on any theory of liability, whether in contract, strict liability,
+or tort (including negligence or otherwise) arising in any way out of
+the use of this software, even if advised of the possibility of such damage.
+
+[variant used by connectedcomponents.cpp]
+IMPORTANT: READ BEFORE DOWNLOADING, COPYING, INSTALLING OR USING.
+
+ By downloading, copying, installing or using the software you agree to this license.
+ If you do not agree to this license, do not download, install,
+ copy or use the software.
+
+
+                       Intel License Agreement
+               For Open Source Computer Vision Library
+
+Copyright (C) 2000, Intel Corporation, all rights reserved.
+Third party copyrights are property of their respective owners.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+  * Redistribution's of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+
+  * Redistribution's in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+  * The name of Intel Corporation may not be used to endorse or promote products
+    derived from this software without specific prior written permission.
+
+This software is provided by the copyright holders and contributors "as is" and
+any express or implied warranties, including, but not limited to, the implied
+warranties of merchantability and fitness for a particular purpose are disclaimed.
+In no event shall the Intel Corporation or contributors be liable for any direct,
+indirect, incidental, special, exemplary, or consequential damages
+(including, but not limited to, procurement of substitute goods or services;
+loss of use, data, or profits; or business interruption) however caused
+and on any theory of liability, whether in contract, strict liability,
+or tort (including negligence or otherwise) arising in any way out of
+the use of this software, even if advised of the possibility of such damage.
+
+2011 Jason Newton <nevion@gmail.com>
+2016, 2021 Costantino Grana <costantino.grana@unimore.it>
+2016, 2021 Federico Bolelli <federico.bolelli@unimore.it>
+2016 Lorenzo Baraldi <lorenzo.baraldi@unimore.it>
+2016 Roberto Vezzani <roberto.vezzani@unimore.it>
+2016 Michele Cancilla <cancilla.michele@gmail.com>
+2021 Stefano Allegretti <stefano.allegretti@unimore.it>
+
+
+======================================================================
+Apache License 2.0
+======================================================================
+Full text: licenses/Apache-2.0.txt (shipped with the app).
+Applies to OpenCV 4.x. No NOTICE file exists in the OpenCV 4.x repository.

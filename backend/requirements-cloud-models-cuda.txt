@@ -1,0 +1,5 @@
+# GPU alternative to requirements-cloud-models.txt, after the torch CUDA runtime.
+# Use a fresh environment; do not install CPU and GPU ONNX Runtime wheels together.
+positional-encodings==6.0.4
+rtmlib==0.0.16
+onnxruntime-gpu==1.20.1
